@@ -3,7 +3,7 @@ import connect from '@vkontakte/vkui-connect';
 import { View } from '@vkontakte/vkui';
 import Home from './Panels/Home';
 import Friends from './Panels/Friends';
-import { ROUTES, FRIENDS_REQUEST_ID } from './config';
+import { ROUTES } from './config';
 import '@vkontakte/vkui/dist/vkui.css';
 
 const location = window.location.hash.substr(1);
@@ -41,7 +41,8 @@ class App extends React.Component {
 						this.getFriends();
 						break;
 					case 'VKWebAppCallAPIMethodResult':
-						if (e.detail.data.request_id === FRIENDS_REQUEST_ID) {
+						debugger;
+						if (e.detail.data.request_id === '34bc') {
 							this.setState({ friends: e.detail.data.response.items });
 						}
 						break;
@@ -60,13 +61,14 @@ class App extends React.Component {
 
 	getFriends() {
 		connect.send("VKWebAppCallAPIMethod", {
-			method: "friends.get",
-			request_id: FRIENDS_REQUEST_ID, 
-			params: {
-				fields: 'city,domain,photo_100',
-				count: 25,
-				order: 'mobile',
-				access_token: this.state.token,
+			'method': "friends.get",
+			'request_id': '34bc',
+			'params': {
+				'fields': 'city,domain,photo_100',
+				'count': 25,
+				'order': 'mobile',
+				'access_token': this.state.token,
+				'v': '5.87',
 			}
 		});
 	}
@@ -89,7 +91,7 @@ class App extends React.Component {
 		return (
 			<View activePanel={this.state.activePanel}>
 				<Home id="home" user={this.state.fetchedUser} geodata={this.state.geodata}  go={this.go} />
-				<Friends id="friends" friends={this.state.friends} getToken={this.getToken} go={this.go} />
+				<Friends id="friends" data={this.state.data} friends={this.state.friends} getToken={this.getToken} token={this.state.token} go={this.go} />
 			</View>
 		);
 	}
