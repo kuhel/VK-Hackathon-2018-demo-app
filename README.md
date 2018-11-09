@@ -8,7 +8,7 @@ Run in bash what you prefer:
 ```bash
 npm start
 ```
-||
+or
 ```bash
 yarn start
 ```
@@ -20,7 +20,7 @@ This will create production bundle, with treeshaking, uglify and all this modern
 ```bash
 npm run build
 ```
-||
+or
 ```bash
 yarn run build
 ```
