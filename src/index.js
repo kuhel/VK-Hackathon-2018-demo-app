@@ -5,7 +5,6 @@ import ReactDOM from 'react-dom';
 import connect from '@vkontakte/vkui-connect';
 import './main.css';
 
-
 // Init VK App
 connect.send('VKWebAppInit', {});
 
