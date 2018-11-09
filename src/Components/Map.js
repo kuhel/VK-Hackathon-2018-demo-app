@@ -124,5 +124,5 @@ MapContainer.propTypes = {
 };
 
 export default GoogleApiWrapper({
-	apiKey: 'AIzaSyCkRQRctgbtGaGx0QRrXvxiijAd_1HLJ7U'
+	apiKey: 'YOUR_GOOGLE_API_KEY'
 })(MapContainer);
