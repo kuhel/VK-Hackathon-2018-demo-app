@@ -2,14 +2,18 @@ import React from 'react';
 import connect from '@vkontakte/vkui-connect';
 import { View } from '@vkontakte/vkui';
 import Home from './Panels/Home';
+import Friends from './Panels/Friends';
+import { ROUTES, FRIENDS_REQUEST_ID } from './config';
 import '@vkontakte/vkui/dist/vkui.css';
+
+const location = window.location.hash.substr(1);
 
 class App extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			activePanel: 'home',
+			activePanel: ~ROUTES.indexOf(location) ? location : 'home',
 			fetchedUser: null,
 			geodata: null,
 		};
@@ -23,10 +27,23 @@ class App extends React.Component {
 						this.setState({ fetchedUser: e.detail.data });
 						break;
 					case 'VKWebAppGeodataResult':
-						this.setState({ geodata: {
-							lat: e.detail.data.lat,
-							lng: e.detail.data.long
-						} });
+						this.setState({ 
+							geodata: {
+								lat: e.detail.data.lat,
+								lng: e.detail.data.long
+							}
+						});
+						break;
+					case 'VKWebAppAccessTokenReceived':
+						this.setState({
+							token: e.detail.data.access_token
+						});
+						this.getFriends();
+						break;
+					case 'VKWebAppCallAPIMethodResult':
+						if (e.detail.data.request_id === FRIENDS_REQUEST_ID) {
+							this.setState({ friends: e.detail.data.response.items });
+						}
 						break;
 					default:
 						break;
@@ -34,13 +51,45 @@ class App extends React.Component {
 			}
 		});
 		connect.send('VKWebAppGetUserInfo', {});
-		// connect.send('VKWebAppGetGeodata', {});
+		connect.send('VKWebAppGetGeodata', {});
 	}
+
+	getToken = () => {
+		connect.send("VKWebAppGetAuthToken", {"app_id": 6695435, "scope": "friends"});
+	}
+
+	getFriends() {
+		connect.send("VKWebAppCallAPIMethod", {
+			method: "friends.get",
+			request_id: FRIENDS_REQUEST_ID, 
+			params: {
+				fields: 'city,domain,photo_100',
+				count: 25,
+				order: 'mobile',
+				access_token: this.state.token,
+			}
+		});
+	}
+
+	setLocation = (route) => {
+		if (route !== 'home') {
+			connect.send('VKWebAppSetLocation', { location: route });
+		} else {
+			connect.send('VKWebAppSetLocation', { location: '' });
+		}
+	}
+
+	go = (e) => {
+		const route = e.currentTarget.dataset.to;
+		this.setState({ activePanel: route })
+		this.setLocation(route)
+	};
 
 	render() {
 		return (
 			<View activePanel={this.state.activePanel}>
-				<Home id="home" user={this.state.fetchedUser} geodata={this.state.geodata}/>
+				<Home id="home" user={this.state.fetchedUser} geodata={this.state.geodata}  go={this.go} />
+				<Friends id="friends" friends={this.state.friends} getToken={this.getToken} go={this.go} />
 			</View>
 		);
 	}

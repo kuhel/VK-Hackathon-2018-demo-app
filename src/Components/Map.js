@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Map, GoogleApiWrapper, Marker, InfoWindow } from 'google-maps-react';
 import Icon24Favorite from '@vkontakte/icons/dist/24/favorite';
 import './Map.css';
@@ -13,7 +14,7 @@ const defaultPlace = {
 	lng: 30.32374651609689,
 }
 
-export class MapContainer extends Component {
+export class MapContainer extends React.Component {
 	state = {
 		activeMarker: {},
 		selectedPlace: {},
@@ -21,13 +22,13 @@ export class MapContainer extends Component {
 		places: []
 	};
 	
-	  onMarkerClick = (props, marker) => {
-			this.setState({
-				activeMarker: marker,
-				selectedPlace: props,
-				showingInfoWindow: true
-			});
-		}
+	onMarkerClick = (props, marker) => {
+		this.setState({
+			activeMarker: marker,
+			selectedPlace: props,
+			showingInfoWindow: true
+		});
+	}
 	
 	onInfoWindowClose = () =>
 		this.setState({
@@ -50,7 +51,6 @@ export class MapContainer extends Component {
 		const { google } = this.props;
 
 		const service = new google.maps.places.PlacesService(map);
-		console.log('center', center);
 
 		const request = {
 			location: {
@@ -79,13 +79,22 @@ export class MapContainer extends Component {
 		/>
 
 	render() {
+		const position = this.props.geodata ? this.props.geodata : defaultPlace;
 		return (
-		<Map
-			google={this.props.google}
-			onReady={this.onMapReady}
-			zoom={14}
-			style={mapStyles}
-			initialCenter={this.props.geodata ? this.props.geodata : defaultPlace}>
+			<Map
+				google={this.props.google}
+				onReady={this.onMapReady}
+				zoom={14}
+				style={mapStyles}
+				initialCenter={position}
+			>
+
+				<Marker
+					name='You are here'
+					onClick={this.onMarkerClick}
+					position={{ ...position }}
+					icon='https://sun9-3.userapi.com/c816721/v816721296/3a/GnslKfyIKX0.png'
+				/>
 				{this.state.places && this.state.places.map(place => this.renderPlace(place))}
 
 				<InfoWindow
@@ -98,16 +107,22 @@ export class MapContainer extends Component {
 						</div>
 						<div className='InfoWindow__text'>
 							<h3>{this.state.selectedPlace.name}</h3>
-							<span className='InfoWindow__rating'><Icon24Favorite /> {this.state.selectedPlace.rating}</span>
+							{this.state.selectedPlace.rating && <span className='InfoWindow__rating'><Icon24Favorite /> {this.state.selectedPlace.rating}</span>}
 						</div>
 					</div>
 				</InfoWindow>
 			</Map>
-
 		);
 	}
 }
 
+MapContainer.propTypes = {
+	geodata: PropTypes.shape({
+		lat: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+		lng: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+	}),
+};
+
 export default GoogleApiWrapper({
-  apiKey: 'YOUR_GOOGLE_API_KEY'
+	apiKey: 'AIzaSyCkRQRctgbtGaGx0QRrXvxiijAd_1HLJ7U'
 })(MapContainer);
