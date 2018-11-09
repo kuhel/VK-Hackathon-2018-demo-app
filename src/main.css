@@ -1,0 +1,19 @@
+:root {
+	/* fonts */
+	--font-ios: -apple-system, Helvetica Neue, Arial;
+	--font-android: Roboto, Arial;
+	--font-common: -apple-system, Roboto, Helvetica Neue, Arial;
+}
+
+html,
+body,
+div#root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  font-family: var(--font-common);
+}
