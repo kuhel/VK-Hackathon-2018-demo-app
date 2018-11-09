@@ -4,24 +4,25 @@
 	"description": "",
 	"main": "index.js",
 	"scripts": {
-	  "start": "cross-env PORT=10888 react-scripts start",
-	  "build": "react-scripts build"
+		"start": "cross-env PORT=10888 react-scripts start",
+		"build": "react-scripts build"
 	},
 	"keywords": [],
 	"author": "Gleb Vorontsov <vorontsov.gleb@gmail.com>",
 	"license": "MIT",
 	"devDependencies": {
-	  "cross-env": "^5.2.0",
-	  "react-hot-loader": "^4.3.12",
-	  "react-scripts": "^1.1.5"
+		"cross-env": "^5.2.0",
+		"react-hot-loader": "^4.3.12",
+		"react-scripts": "^1.1.5"
 	},
 	"dependencies": {
-	  "@vkontakte/icons": "^1.2.1",
-	  "@vkontakte/vkui": "^2.13.0",
-	  "@vkontakte/vkui-connect": "^1.1.2",
-	  "core-js": "^2.5.7",
-	  "prop-types": "^15.6.2",
-	  "react": "^16.6.1",
-	  "react-dom": "^16.6.1"
+		"@vkontakte/icons": "^1.2.1",
+		"@vkontakte/vkui": "^2.13.0",
+		"@vkontakte/vkui-connect": "^1.1.2",
+		"core-js": "^2.5.7",
+		"google-maps-react": "^2.0.2",
+		"prop-types": "^15.6.2",
+		"react": "^16.6.1",
+		"react-dom": "^16.6.1"
 	}
-  }
+}

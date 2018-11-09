@@ -1,0 +1,29 @@
+.InfoWindow {
+	display: flex;
+}
+
+.InfoWindow__pic {
+	margin-right: 12px;
+}
+
+.InfoWindow__pic > img {
+	max-width: 48px !important;
+}
+
+.InfoWindow__text h3 {
+	margin-top: 0;
+	margin-bottom: 8px;
+}
+
+.InfoWindow__rating {
+	display: flex;
+	align-items: flex-end;
+	color: goldenrod;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.InfoWindow__rating > .Icon {
+	margin-right: 4px;
+}

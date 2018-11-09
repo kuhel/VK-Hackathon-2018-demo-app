@@ -11,6 +11,7 @@ class App extends React.Component {
 		this.state = {
 			activePanel: 'home',
 			fetchedUser: null,
+			geodata: null,
 		};
 	}
 
@@ -21,18 +22,25 @@ class App extends React.Component {
 					case 'VKWebAppGetUserInfoResult':
 						this.setState({ fetchedUser: e.detail.data });
 						break;
+					case 'VKWebAppGeodataResult':
+						this.setState({ geodata: {
+							lat: e.detail.data.lat,
+							lng: e.detail.data.long
+						} });
+						break;
 					default:
 						break;
 				}
 			}
 		});
 		connect.send('VKWebAppGetUserInfo', {});
+		// connect.send('VKWebAppGetGeodata', {});
 	}
 
 	render() {
 		return (
 			<View activePanel={this.state.activePanel}>
-				<Home id="home" user={this.state.fetchedUser} />
+				<Home id="home" user={this.state.fetchedUser} geodata={this.state.geodata}/>
 			</View>
 		);
 	}

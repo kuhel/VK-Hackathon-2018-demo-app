@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Panel, Group, ListItem, Avatar, PanelHeader } from '@vkontakte/vkui';
+import Map from '../Components/Map';
 
 const Home = (props) => (
 	<Panel id={props.id}>
@@ -16,6 +17,7 @@ const Home = (props) => (
 				</ListItem>
 			</Group>
 		}
+		<Map geodata={props.geodata}/>
 	</Panel>
 );
 
@@ -28,6 +30,10 @@ Home.propTypes = {
 		city: PropTypes.shape({
 			title: PropTypes.string,
 		}),
+	}),
+	geodata: PropTypes.shape({
+		lat: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+		lng: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 	}),
 };
 
