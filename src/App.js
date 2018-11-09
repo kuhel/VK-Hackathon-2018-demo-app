@@ -34,7 +34,7 @@ class App extends React.Component {
 			}
 		});
 		connect.send('VKWebAppGetUserInfo', {});
-		// connect.send('VKWebAppGetGeodata', {});
+		connect.send('VKWebAppGetGeodata', {});
 	}
 
 	render() {
