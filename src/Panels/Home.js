@@ -17,8 +17,8 @@ const Home = (props) => (
 			props.user &&
 			<Group title="User Info">
 				<ListItem
-					before={<Avatar src={props.user.photo_200}/>}
-					description={props.user.city.title}
+					before={<Avatar src={props.user.photo_100}/>}
+					description={props.user.city && props.user.city.title}
 				>
 					{`${props.user.first_name} ${props.user.last_name}`}
 				</ListItem>
