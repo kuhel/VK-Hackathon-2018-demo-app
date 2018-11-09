@@ -3,10 +3,10 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
-	"homepage": "https://kuhel.github.io/vk-hackathon-2018-demo-app",
+	"homepage": "https://kuhel.github.io/VK-Hackathon-2018-demo-app",
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/kuhel/vk-hackathon-2018-demo-app.git"
+		"url": "git://github.com/kuhel/VK-Hackathon-2018-demo-app.git"
 	},
 	"scripts": {
 		"start": "cross-env PORT=10888 react-scripts start",
