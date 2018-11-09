@@ -3,9 +3,16 @@
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
+	"homepage": "https://kuhel.github.io/vk-hackathon-2018-demo-app",
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/kuhel/vk-hackathon-2018-demo-app.git"
+	},
 	"scripts": {
 		"start": "cross-env PORT=10888 react-scripts start",
-		"build": "react-scripts build"
+		"build": "react-scripts build",
+		"deploy": "gh-pages -d build",
+		"predeploy": "npm run build"
 	},
 	"keywords": [],
 	"author": "Gleb Vorontsov <vorontsov.gleb@gmail.com>",
@@ -20,6 +27,7 @@
 		"@vkontakte/vkui": "^2.13.0",
 		"@vkontakte/vkui-connect": "^1.1.2",
 		"core-js": "^2.5.7",
+		"gh-pages": "^2.0.1",
 		"google-maps-react": "^2.0.2",
 		"prop-types": "^15.6.2",
 		"react": "^16.6.1",
